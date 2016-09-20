@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+#include <cstdio>
+
+using namespace std;
+int main()
+{
+	
+    // For Graph
+    //FILE* graph = fopen("AscSortedReading", "w");
+    //fprintf(graph, "Size\tInsertionSort\tMergeSort\tSelectionSort\tQuickSort\tBubbleSort\tOptBubbleSort\tRankSort\tOptRankSort\n");
+
+    string commandsForGnuplot[] = {"set term x11 0" ,
+     "set title \"Comparisons\nyi.\"",
+     "set key outside","set xlabel 'Input Size'", "set ylabel 'Time(s)'",
+      "plot for [col=2:7] 'result.txt' using 1:col with line title columnheader"};
+
+
+
+    FILE * gnuplotPipe = popen ("gnuplot -p", "w");
+    for (int i=0;i<6;i++)
+   //int i=0;
+        fprintf(gnuplotPipe, "%s \n", commandsForGnuplot[i].c_str());
+    //fclose(graph);
+    pclose(gnuplotPipe);   
+    return 0;
+}

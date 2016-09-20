@@ -1,0 +1,148 @@
+
+#ifndef VECTOR_HPP_
+#define VECTOR_HPP_
+#include<cstdlib>
+#include<cstring>
+namespace pratap
+{
+  template < class Item > class vector
+  {
+  public:
+    vector ();			
+    ~vector ();			
+    void push_back (const Item & item);	
+    void pop_back();
+    bool empty ();		
+    unsigned int size ();
+      vector (const int &isize);	
+    inline Item & operator[] (const int &i);
+    void fill (const Item & item);
+    
+      vector (const int &isize, const Item & ival);	
+  private:
+      Item * array;
+
+    unsigned int asize;		
+    int cap;			
+    const static int dyns = 128;
+    const static int dynm = 2;
+
+  };
+  template < class Item > inline Item & vector < Item >::operator[](const int &i)	
+  {
+
+    return array[i];
+  }
+
+
+  template < class Item > vector < Item >::vector ()
+  {
+    array = NULL;
+    asize = 0;
+
+  }
+
+  template < class Item > vector < Item >::vector (const int &isize)
+  {
+    asize = 0;
+    cap = isize;
+    array = new Item[isize];
+  }
+
+
+
+  template < class Item >
+    vector < Item >::vector (const int &isize, const Item & ival)
+  {
+    asize = 0;
+    cap = isize;
+    array = new Item[isize];
+    int i;
+    for (i = 0; i < isize; i++)
+      array[i] = ival;
+    asize = isize;
+  }
+  template < class Item > vector < Item >::~vector ()
+  {
+
+    delete[]array;
+
+
+  }
+
+  template < class Item > void vector < Item >::push_back (const Item & item)
+  {
+    if (asize == 0)
+      {
+	array = new Item[1];
+	array[0] = item;
+	asize = 1;
+      }
+    else
+      {
+	Item *temp;
+	temp = new Item[asize + 1];
+	int j = 0;
+	while (j < asize)
+	  {
+	    temp[j] = array[j];
+	    j++;
+	  }
+	temp[j] = item;
+	delete[]array;
+	array = temp;
+	asize++;
+      }
+  }
+ template < class Item > void vector < Item >::pop_back ()
+  {
+    if (asize == 0)
+      {
+	//array = new Item[1];
+	//array[0] = item;
+	//asize = 1;
+        return 0;
+      }
+    else
+      {
+	/*Item *temp;
+	temp = new Item[asize + 1];
+	int j = 0;
+	while (j < asize)
+	  {
+	    temp[j] = array[j];
+	    j++;
+	  }
+	temp[j] = item;*/
+	delete[]array;
+	//array = temp;
+	//asize--;
+      }
+  }
+
+
+  template < class Item > unsigned int vector < Item >::size ()
+  {
+    return asize;
+  }
+
+  template < class Item > bool vector < Item >::empty ()
+  {
+    if (asize == 0)
+      return true;
+    else
+      false;
+  }
+
+  template < class Item > void vector < Item >::fill (const Item & item)
+  {
+    int i = 0;
+    int k;
+    for (i = 0; i < asize; i++)
+      {
+	array[i] = item;
+      }
+  }
+
+}
+#endif
